@@ -98,6 +98,22 @@
   footer .footlogo{width:40px;height:auto;border-radius:7px;opacity:.92;box-shadow:0 4px 14px rgba(88,10,0,.4)}
   footer .word{font-family:'Oswald',sans-serif;text-transform:uppercase;letter-spacing:.18em;font-size:13px;color:var(--beige);margin:14px 0 6px}
   footer .fine{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--muted);letter-spacing:.06em;max-width:60ch;margin:0 auto}
+  /* 한국어 단어가 줄 끝에서 쪼개지지 않도록 */
+  body{word-break:keep-all}
+  /* hidden이 flex/grid display 규칙에 덮이지 않도록 */
+  [hidden]{display:none!important}
+  /* 플랫폼(AMD/Intel) 전환 탭 */
+  .tabs{display:inline-flex;gap:5px;margin-top:22px;padding:5px;border:1px solid var(--line-2);
+    border-radius:16px;background:rgba(42,10,5,.5)}
+  .tab{font-family:'Oswald',sans-serif;font-weight:600;font-size:14px;letter-spacing:.09em;text-transform:uppercase;
+    padding:9px 22px;border:0;border-radius:12px;background:transparent;color:var(--muted);cursor:pointer;
+    transition:color .2s,background .2s,box-shadow .2s;white-space:nowrap;text-align:center}
+  .tab:hover{color:var(--beige-lt)}
+  .tab.active{color:var(--cream);background:linear-gradient(135deg,var(--wine),var(--brown));
+    box-shadow:0 3px 16px rgba(184,58,28,.4)}
+  .tab .cpu{display:block;font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:400;
+    letter-spacing:.02em;color:var(--brown-lt);margin-top:3px;text-transform:none}
+  .tab.active .cpu{color:var(--beige-lt)}
 </style>
 
 <template id="fanTpl">
@@ -133,15 +149,20 @@
         <img class="brandlogo" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyBpZD0iTGF5ZXJfMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2ZXJzaW9uPSIxLjEiIHZpZXdCb3g9IjAgMCAxNjAgMTMzLjA3Ij4KICA8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMzAuNi4wLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogMi4xLjQgQnVpbGQgMTA5KSAgLS0+CiAgPGRlZnM+CiAgICA8c3R5bGU+CiAgICAgIC5zdDAgewogICAgICAgIGZpbGw6ICMyMzFmMjA7CiAgICAgIH0KCiAgICAgIC5zdDEgewogICAgICAgIGZpbGw6ICNmZmY7CiAgICAgIH0KCiAgICAgIC5zdDIgewogICAgICAgIGZpbGw6ICM1ODBhMDA7CiAgICAgIH0KICAgIDwvc3R5bGU+CiAgPC9kZWZzPgogIDxyZWN0IGNsYXNzPSJzdDIiIHdpZHRoPSIxNjAiIGhlaWdodD0iMTMzLjA3Ii8+CiAgPGNpcmNsZSBjbGFzcz0ic3QyIiBjeD0iODAiIGN5PSI2Ni41MyIgcj0iNTIuNDQiLz4KICA8cGF0aCBjbGFzcz0ic3QyIiBkPSJNOTcuMSw0NS40OWgtMzguNjRjLTEuNTYsMC0yLjgzLDEuMjctMi44MywyLjgzdjMxLjY0Yy0uMDIsMS41NiwxLjIyLDIuODUsMi43OCwyLjg3aDM4LjY5YzEuNTYsMCwyLjgzLTEuMjcsMi44My0yLjgzdi0zMS42NGMuMDItMS41Ni0xLjIyLTIuODUtMi43OC0yLjg3aC0uMDVaIi8+CiAgPGc+CiAgICA8cGF0aCBjbGFzcz0ic3QxIiBkPSJNMTA5LjEzLDM0LjM4Yy41LjE4LjgzLjY4LjgxLDEuMTksMCwuNTMtLjM5LDEuMDMtLjkyLDEuMTYtLjUuMTMtMS4wNS0uMDYtMS4zNC0uNDhoLTIyLjAxYy0uMzcsMC0uNzIuMDYtMS4wNS4xNS0uMzkuMTEtLjcyLjI5LTEuMDUuNS0uNjIuNC0xLjA4LDEuMDctMS4zOCwxLjc0LS4xNy40Mi0uMjIuODYtLjI0LDEuMzIuNDgtLjUxLDEuMDctLjkyLDEuNzEtMS4xOS42Ni0uMjgsMS4zMi0uMzksMi4wMi0uNDJoMTguNDZjLjMzLS40Ni45Mi0uNjQsMS40My0uNDQuNS4xOC44My42Ni44MSwxLjE5LDAsLjUzLS4zOSwxLjAzLS45LDEuMTgtLjUuMTUtMS4wNS0uMDYtMS4zNC0uNDhoLTE4LjQ0Yy0uMzUsMC0uNzIuMDQtMS4wNS4xNS0uMzkuMTMtLjcyLjI4LTEuMDUuNS0uNjIuNC0xLjA4LDEuMDEtMS4zNiwxLjcxLS4xOC40NC0uMjQuOS0uMjgsMS4zOC45Ny0xLjAzLDIuMzEtMS41NiwzLjczLTEuNmgxNC45M2MuNjYtLjczLDEuOTEtLjQsMi4xMS41NywwLC4wMi4wNC4wNC4wNi4wNi41MS42MiwxLjAxLDEuMjUsMS40NSwxLjkzLjQyLjY0Ljc3LDEuMzIsMS4xLDIuMDIuNjYsMS4zNiwxLjA3LDIuODMsMS40LDQuMy4zMywxLjQ3LjQyLDIuOTkuNDYsNC40OHYxOS45M2MtLjAyLjYyLS4xMSwxLjE5LS4zMSwxLjc4LS4xOC41MS0uNDgsMS4wNy0uODQsMS40OS0uNS41Ny0xLjA4LDEuMDgtMS43OCwxLjQtLjM1LjE1LS43Mi4zMS0xLjA4LjM5LS4zOS4wNy0uNzUuMTEtMS4xNC4xM2gtMjEuNTF2LTQwLjM5Yy4wNC0xLjE4LjM3LTIuMzcsMS4xNi0zLjI1LjUtLjU3LDEuMDgtMS4wOCwxLjc4LTEuNC4zNS0uMTUuNy0uMjksMS4wOC0uMzkuMzktLjA3Ljc1LS4xMSwxLjE0LS4xM2gyMi4wMWMuMzMtLjQ2LjkyLS42NCwxLjQ1LS40NmgtLjA0Wk0xMDUuNzUsNzUuMjN2LTE5LjkzYy0uMDQtMS41Mi0uMTctMy4wMy0uNS00LjU0LS4zMS0xLjQ1LS44MS0yLjg4LTEuNDktNC4yMS0uNDgtLjk0LTEuMDUtMS44Mi0xLjcxLTIuNjMtLjU5LjI5LTEuMzIuMDYtMS42My0uNTNoLTE0Ljc1Yy0uMzcsMC0uNzIuMDYtMS4wNy4xNS0uMzkuMTEtLjcyLjI5LTEuMDUuNS0uNjIuNC0xLjA4LDEuMDctMS4zOCwxLjc0LS4xNy40Mi0uMjIuODgtLjI0LDEuMzR2OS4yNGMuNDgtLjUxLDEuMDctLjkyLDEuNzEtMS4xOS42Ni0uMjgsMS4zMi0uMzksMi4wMi0uNDJoMi4xN2MuMzctLjQyLjk3LS41NSwxLjQ3LS4zMS40OC4yMi43NS43NS43LDEuMjctLjA3LjUzLS40OC45Ny0xLjAxLDEuMDgtLjUxLjA5LTEuMDMtLjE1LTEuMjktLjYxaC0yLjAyYy0uMzUsMC0uNzIuMDQtMS4wNy4xNS0uMzkuMTMtLjcyLjI5LTEuMDUuNS0uNjEuNC0xLjA3Ljk5LTEuMzQsMS42Ny0uMTcuNC0uMjYuODEtLjI4LDEuMjN2MTIuMWMuNjgsMCwxLjIzLjU3LDEuMjMsMS4yNXMtLjU3LDEuMjUtMS4yMywxLjI1djQuNjNoMjAuMDhjLjc3LS4wNCwxLjQ1LS4yNCwyLjA5LS42Ni42Mi0uMzksMS4wOC0xLjA1LDEuMzYtMS43My4xOC0uNDQuMjQtLjg4LjI2LTEuMzZoMHYuMDJaIi8+CiAgICA8cGF0aCBjbGFzcz0ic3QxIiBkPSJNNTcuMyw0Mi4wOWMtLjU1LjU3LTEuMDUsMS4xNi0xLjUxLDEuOC0uNDQuNTktLjgxLDEuMjEtMS4xNCwxLjg2LS43LDEuMzgtMS4yMywyLjgzLTEuNiw0LjMyLS4zNSwxLjQ1LS41OSwyLjk2LS42MSw0LjQ1djIwLjdjMCwuMzkuMDYuNzUuMTMsMS4xNC4wNy4zOS4yMi43My4zOSwxLjA4LjMxLjcuODEsMS4yOSwxLjQsMS43Ni45Mi43NywyLjA4LDEuMTIsMy4yNSwxLjE2aDIxLjUxdi00MC4zNWMtLjA0LS43OS0uMTgtMS41MS0uNS0yLjIyLS4zMS0uNy0uODMtMS4yOS0xLjQtMS43OC0uNDItLjM3LS45Ni0uNjYtMS40Ny0uODQtLjU5LS4yLTEuMTYtLjI5LTEuNzgtLjMxaC0yMy45MmwuMTguMThjMS4zMiwxLjMyLDIuNjUsMi42NSwzLjk1LDMuOTcsMS4wMywxLjAzLDIuMDYsMi4wOCwzLjEsMy4xIi8+CiAgICA8cGF0aCBjbGFzcz0ic3QwIiBkPSJNNzEuOTUsNTYuNTFjLS4yOS4zNy0uNjIuNy0xLjEuODMtLjQ2LjEzLS45Ni4wNy0xLjM4LS4xOC0uNjEtLjM5LTEuMDUtMS4xNC0xLjE2LTEuODQtLjA2LS4zNy0uMTEtLjc1LS4wNi0xLjEyLjA2LS4zOS4xNS0uNzMuMjktMS4xbC00LjU2LTQuNDZjLS4zMS42OC0uNTcsMS4zLS43MywyLjA0LS4xOC43NS0uMjksMS41Mi0uMzMsMi4zLS4wNC43NywwLDEuNTIuMTMsMi4zLjExLjc1LjMxLDEuNDkuNTcsMi4yMi4yMi42Ni41OSwxLjM0Ljk5LDEuOTEuMjIuMzEuNDQuNjQuNzIuOTIuMjguMjguNTcuNTUuODguODEuNTcuNDgsMS4zLjc1LDIsLjk3LjMxLjA5LjczLjE1LDEuMDcuMTMuMzcsMCwuNzMtLjAyLDEuMDgtLjExLjcyLS4xOCwxLjQzLS40OCwyLjA0LS45NC4yOS0uMjQuNjEtLjQ4Ljg2LS43Ny4yOC0uMzEuNTEtLjYyLjc3LS45Ni4xMy0uMTguMjQtLjM3LjM1LS41NWwtMi4zOS0yLjM5aC0uMDZaIi8+CiAgICA8cGF0aCBjbGFzcz0ic3QwIiBkPSJNNzkuMSw3NC4zM2wtNy4yOS03LjI5Yy0uMjkuMTMtLjU3LjI4LS44Ni40LTEuMzIuNTMtMi43Ny44NC00LjIxLjc1LTEuNDctLjA5LTIuODUtLjUtNC4xNS0xLjE0LS42NC0uMzMtMS4yNS0uNzUtMS44LTEuMjFzLTEuMS0uOTctMS41Ni0xLjU0Yy0uODgtMS4xMi0xLjYyLTIuMzEtMi4xNS0zLjY0LS41MS0xLjMyLS44My0yLjcyLS45Ni00LjE1LS4xMS0xLjQ1LS4wNC0yLjkuMjgtNC4zMi4yOC0xLjM0Ljc1LTIuNjYsMS40My0zLjg4LjctMS4yNSwxLjQ5LTIuMjYsMi41My0zLjIzbDEuMDMuOTljLTEuMTIsMS4wMS0xLjk1LDIuMTEtMi42MSwzLjQ3LS42NiwxLjM0LTEuMDUsMi44MS0xLjIxLDQuM3MtLjA2LDMuMDEuMjgsNC40OGMuMzMsMS40Ny45NywyLjg1LDEuNzYsNC4xMS43OSwxLjI1LDEuOTMsMi4yNiwzLjE2LDMuMDUuNjEuNCwxLjMyLjcsMiwuOS43Mi4yMiwxLjQ1LjMzLDIuMTkuMzUsMS40Ny4wNCwyLjk5LS4zMSw0LjI2LTEuMDMsMS4yOS0uNzUsMi4zOS0xLjcxLDMuMjctMi45Mi41NS0uNzUuOTktMS41NCwxLjM2LTIuNDFsMy4yMywzLjI1djEwLjY3bC4wMi4wMloiLz4KICA8L2c+CiAgPGc+CiAgICA8cGF0aCBjbGFzcz0ic3QxIiBkPSJNNTEuNTYsODYuNzRoLTUuODJjLS42OCwwLTEuMjcuMjYtMS43Ni43Ny0uNDkuNTEtLjczLDEuMTMtLjczLDEuODV2Ny4xOGguOTJ2LTcuMDJjMC0uNTEuMTUtLjk0LjQzLTEuMjkuMjktLjM1LjY2LS41MiwxLjE0LS41Mmg1LjgyYy40OSwwLC44Ni4xNywxLjE0LjUyLjI4LjM1LjQyLjc4LjQyLDEuM3Y3LjAyaC45MnYtNy4xOGMwLS43Mi0uMjUtMS4zNC0uNzMtMS44NS0uNDktLjUxLTEuMDgtLjc3LTEuNzYtLjc3WiIvPgogICAgPHBhdGggY2xhc3M9InN0MSIgZD0iTTY0LjYyLDg2Ljc0aC01LjgyYy0uNjgsMC0xLjI3LjI2LTEuNzYuNzctLjQ4LjUxLS43MywxLjEzLS43MywxLjg1djQuNTdjMCwuNzIuMjUsMS4zNC43MywxLjg0LjQ5LjUxLDEuMDguNzcsMS43Ni43N2g1LjgyYy42OCwwLDEuMjctLjI2LDEuNzUtLjc3LjQ4LS41MS43My0xLjEzLjczLTEuODR2LTQuNTdjMC0uNzEtLjI1LTEuMzMtLjczLTEuODUtLjQ4LS41MS0xLjA3LS43Ny0xLjc1LS43N1pNNjYuMTksODkuMzZ2NC41N2MwLC40NC0uMTUuODQtLjQ2LDEuMTYtLjMxLjMzLS42Ny40OS0xLjExLjQ5aC01LjgyYy0uNDMsMC0uNzktLjE2LTEuMS0uNDktLjMxLS4zMi0uNDctLjcyLS40Ny0xLjE2di00LjU3YzAtLjQ1LjE2LS44NC40Ny0xLjE2LjMxLS4zMy42Ny0uNDksMS4xLS40OWg1LjgyYy40NCwwLC44LjE2LDEuMTEuNDkuMzEuMzMuNDYuNzIuNDYsMS4xNloiLz4KICAgIDxwYXRoIGNsYXNzPSJzdDEiIGQ9Ik03MC4xNCw4Ny41MWMtLjQ4LjUxLS43MywxLjEzLS43MywxLjg1djQuNTdjMCwuNzIuMjUsMS4zNC43MywxLjg0LjQ4LjUxLDEuMDguNzcsMS43Ni43N2g4LjMxdi0uOTZoLTguMzFjLS40MiwwLS43OS0uMTYtMS4xLS40OS0uMzEtLjMyLS40Ny0uNzEtLjQ3LTEuMTZ2LTQuNTdjMC0uNDUuMTYtLjg0LjQ3LTEuMTYuMzEtLjMzLjY3LS40OSwxLjEtLjQ5aDguMzF2LS45NmgtOC4zMWMtLjY4LDAtMS4yNy4yNi0xLjc2Ljc3WiIvPgogICAgPHBhdGggY2xhc3M9InN0MSIgZD0iTTkwLjU4LDk1LjU4aC0zLjdjLS40MiwwLS43OS0uMTYtMS4wOS0uNDktLjMxLS4zMi0uNDYtLjcxLS40Ni0xLjE2di02LjIxaDUuMjZ2LS45NmgtNS4yNnYtMi43MmgtLjkydjIuNzJoLTEuOTR2Ljk2aDEuOTR2Ni4wNWMwLC43OC4yMywxLjQ0LjY5LDEuOTcuNDYuNTMsMS4wNi44LDEuNzguOGgzLjd2LS45NloiLz4KICAgIDxwYXRoIGNsYXNzPSJzdDEiIGQ9Ik0xMDMuNjksODYuNzRoLS45MnY3LjA0YzAsLjUxLS4xNC45NC0uNDIsMS4yOS0uMjguMzQtLjY3LjUxLTEuMTUuNTFoLTUuODJjLS40NywwLS44NS0uMTctMS4xNC0uNTEtLjI5LS4zNC0uNDMtLjc4LS40My0xLjI5di03LjA0aC0uOTJ2Ny4yYzAsLjcxLjI1LDEuMzMuNzMsMS44NC40OS41MSwxLjA4Ljc2LDEuNzYuNzZoNS44M2MuNjgsMCwxLjI3LS4yNiwxLjc1LS43Ni40OS0uNS43My0xLjEyLjczLTEuODR2LTcuMloiLz4KICAgIDxwYXRoIGNsYXNzPSJzdDEiIGQ9Ik0xMTYuMDIsODcuNTFjLS40OS0uNTEtMS4wOC0uNzctMS43Ni0uNzdoLTUuODd2Ljk2aDUuODdjLjQ0LDAsLjgxLjE2LDEuMTEuNDkuMzEuMzIuNDYuNy40NiwxLjE2djEuOGgtNy4zOWMtLjcsMC0xLjMuMjUtMS43Ny43NS0uNDcuNS0uNzEsMS4xMi0uNzEsMS44NiwwLC43OC4yMywxLjQ0LjY5LDEuOTguNDYuNTMsMS4wNi44LDEuOC44aDguMzF2LTcuMThjMC0uNzEtLjI1LTEuMzMtLjczLTEuODVaTTExNS44Myw5Mi4xMnYzLjQ2aC03LjM5Yy0uNDIsMC0uNzktLjE2LTEuMS0uNDktLjMxLS4zMi0uNDctLjcyLS40Ny0xLjE2LDAtLjUyLjE0LS45NS40My0xLjI5LjI5LS4zNS42Ni0uNTIsMS4xNC0uNTJoNy4zOVoiLz4KICA8L2c+Cjwvc3ZnPg==" alt="brand logo" width="52" height="43">
         <p class="eyebrow">Dream Build · Designed in the spirit of Austria</p>
         <h1>Noctua<span class="thin">Dream System</span></h1>
-        <p class="sub">브라운과 베이지로 통일한 올-녹투아 고요한 하이엔드. AMD 9950X3D2 · 다중 게임 구동에 최적화된 최종 구성.</p>
-        <div class="totalbar"><span class="lbl">본체 합계</span><span class="amt">&#8361;12,186,320<small>+ OS</small></span></div>
+        <p class="sub plat" data-plat="amd">브라운과 베이지로 통일한 올-녹투아 고요한 하이엔드. AMD 9950X3D2 · 다중 게임 구동에 최적화된 최종 구성.</p>
+        <p class="sub plat" data-plat="intel" hidden>브라운과 베이지로 통일한 올-녹투아 고요한 하이엔드. Intel Ultra 7 270K Plus · CUDIMM 8400 고속 지향 구성.</p>
+        <div class="totalbar"><span class="lbl">본체 합계</span><span class="amt plat" data-plat="amd">&#8361;12,186,320<small>+ OS</small></span><span class="amt plat" data-plat="intel" hidden>&#8361;11,003,090<small>+ OS</small></span></div>
+        <div class="tabs" role="tablist">
+          <button class="tab active" type="button" data-tab="amd" role="tab">AMD 세팅<span class="cpu">Ryzen 9 9950X3D2</span></button>
+          <button class="tab" type="button" data-tab="intel" role="tab">Intel 세팅<span class="cpu">Core Ultra 7 270K Plus</span></button>
+        </div>
       </div>
     </div>
   </header>
 
   <section>
     <div class="sechead"><span class="no">01</span><h2>Components</h2><span class="rule"></span></div>
-    <div class="parts">
+    <div class="parts plat" data-plat="amd">
 
       <a class="part" target="_blank" rel="noopener" href="https://search.danawa.com/dsearch.php?query=AMD%20%EB%9D%BC%EC%9D%B4%EC%A0%A09%209950X3D2">
         <span class="ico"><svg viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="1"/><path d="M9 2v3M12 2v3M15 2v3M9 19v3M12 19v3M15 19v3M2 9h3M2 12h3M2 15h3M19 9h3M19 12h3M19 15h3"/></svg></span>
@@ -198,11 +219,69 @@
       </a>
 
     </div>
+
+    <div class="parts plat" data-plat="intel" hidden>
+
+      <a class="part" target="_blank" rel="noopener" href="https://search.danawa.com/dsearch.php?query=Intel%20Core%20Ultra%207%20270K%20Plus">
+        <span class="ico"><svg viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="1"/><path d="M9 2v3M12 2v3M15 2v3M9 19v3M12 19v3M15 19v3M2 9h3M2 12h3M2 15h3M19 9h3M19 12h3M19 15h3"/></svg></span>
+        <div class="pmain"><p class="cat">CPU · Arrow Lake</p><p class="name">Intel Core Ultra 7 270K Plus</p><p class="spec">LGA1851 · 24코어(8P+16E) · 24스레드 · 최대 5.5GHz · 내장 NPU</p></div>
+        <div class="price"><div class="won">513,000</div><span class="link">다나와 →</span></div>
+      </a>
+
+      <a class="part" target="_blank" rel="noopener" href="https://search.danawa.com/dsearch.php?query=ASUS%20ProArt%20Z890-Creator%20WiFi">
+        <span class="ico"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><rect x="6.5" y="6.5" width="6" height="6" rx="1"/><path d="M15 7h3M15 10h3M6.5 16h11M6.5 19h11"/></svg></span>
+        <div class="pmain"><p class="cat">Motherboard · Creator</p><p class="name">ASUS ProArt Z890-Creator WiFi</p><p class="spec">Z890 · 블랙+골드 · Thunderbolt 5 ×2 · PCIe 5.0 · M.2 5개 · WiFi 7</p></div>
+        <div class="price"><div class="won">818,920</div><span class="link">다나와 →</span></div>
+      </a>
+
+      <a class="part" target="_blank" rel="noopener" href="https://search.danawa.com/dsearch.php?query=CORSAIR%20DDR5-8400%20CL40%20VENGEANCE%20RGB%2048GB%20CUDIMM">
+        <span class="ico"><svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="10" rx="1"/><path d="M5 7v10M8 7v10M11 7v10M14 7v10M17 7v10M2 19h20"/></svg></span>
+        <div class="pmain"><p class="cat">Memory · CUDIMM</p><p class="name">CORSAIR Vengeance RGB DDR5-8400 CL40 48GB</p><p class="spec">2×24GB · CUDIMM · 8400 고속 · Intel 고클럭 최적</p></div>
+        <div class="price"><div class="won">1,349,950</div><span class="link">다나와 →</span></div>
+      </a>
+
+      <a class="part" target="_blank" rel="noopener" href="https://search.danawa.com/dsearch.php?query=ASUS%20RTX%205080%20NOCTUA">
+        <span class="ico"><svg viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="13" rx="2"/><circle cx="8" cy="11.5" r="3"/><circle cx="16" cy="11.5" r="3"/><path d="M2 18v2"/></svg></span>
+        <div class="pmain"><p class="cat">Graphics · Noctua Edition</p><p class="name">ASUS RTX 5080 OC Noctua Edition</p><p class="spec">NF-A12x25 G2 ×3 · 베이퍼챔버 · 최정숙 공랭</p></div>
+        <div class="price"><div class="won">2,729,990</div><span class="link">다나와 →</span></div>
+      </a>
+
+      <a class="part" target="_blank" rel="noopener" href="https://search.danawa.com/dsearch.php?query=NOCTUA%20NL-LC1-42">
+        <span class="ico"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="7" rx="1.5"/><path d="M6 11v4a3 3 0 003 3h1"/><circle cx="13" cy="19" r="3"/></svg></span>
+        <div class="pmain"><p class="cat">CPU Cooler · Noctua</p><p class="name">Noctua NL-LC1-42 (420mm 수랭)</p><p class="spec">NF-A14x25 G2 ×3 · SecuFirm2+ LGA1851 지원 · 6년</p></div>
+        <div class="price"><div class="won">491,050</div><span class="link">다나와 →</span></div>
+      </a>
+
+      <a class="part" target="_blank" rel="noopener" href="https://search.danawa.com/dsearch.php?query=%EC%82%BC%EC%84%B1%209100%20PRO%204TB">
+        <span class="ico"><svg viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 3v18M11 7h6M11 10h6"/></svg></span>
+        <div class="pmain"><p class="cat">Storage · Gen5 부팅</p><p class="name">Samsung 9100 PRO 4TB</p><p class="spec">PCIe 5.0 · 14,800MB/s · M.2_1 · 방열판 미포함</p></div>
+        <div class="price"><div class="won">1,713,210</div><span class="link">다나와 →</span></div>
+      </a>
+
+      <a class="part" target="_blank" rel="noopener" href="https://search.danawa.com/dsearch.php?query=%EC%82%BC%EC%84%B1%209100%20PRO%204TB">
+        <span class="ico"><svg viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 3v18M11 7h6M11 10h6"/></svg></span>
+        <div class="pmain"><p class="cat">Storage · Gen4 슬롯</p><p class="name">Samsung 9100 PRO 4TB</p><p class="spec">M.2_2(Gen4 x4) · ~7,450MB/s · 게임·개발 · 방열판 미포함</p></div>
+        <div class="price"><div class="won">1,713,210</div><span class="link">다나와 →</span></div>
+      </a>
+
+      <a class="part" target="_blank" rel="noopener" href="https://search.danawa.com/dsearch.php?query=Antec%20Flux%20Pro%20Noctua%20Edition">
+        <span class="ico"><svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M9 6h6M9 9h6"/><circle cx="12" cy="15" r="2.5"/></svg></span>
+        <div class="pmain"><p class="cat">Case · Noctua Edition</p><p class="name">Antec Flux Pro Noctua Edition</p><p class="spec">풀타워 · G2 팬 6개 + NA-FH1 · 420 라디</p></div>
+        <div class="price"><div class="won">722,790</div><span class="link">다나와 →</span></div>
+      </a>
+
+      <a class="part" target="_blank" rel="noopener" href="https://search.danawa.com/dsearch.php?query=NOCTUA%20PRIME%20TX-1600">
+        <span class="ico"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="12" cy="12" r="4"/><path d="M12 8v8M8 12h8"/></svg></span>
+        <div class="pmain"><p class="cat">Power · Noctua Edition</p><p class="name">Noctua PRIME TX-1600 Noctua Edition</p><p class="spec">1600W 티타늄 · Seasonic 협업 · 세미패시브</p></div>
+        <div class="price"><div class="won">950,970</div><span class="link">다나와 →</span></div>
+      </a>
+
+    </div>
   </section>
 
   <section>
     <div class="sechead"><span class="no">02</span><h2>Storage &amp; Memory</h2><span class="rule"></span></div>
-    <div class="grid2">
+    <div class="grid2 plat" data-plat="amd">
       <div class="panel">
         <h3>저장장치 배치 · 12TB</h3>
         <div class="drow"><span class="k">M.2_1 <span class="tag">Gen5</span></span><span class="v">9100 PRO 4TB · 부팅/OS</span></div>
@@ -216,6 +295,23 @@
         <div class="drow"><span class="k">속도</span><span class="v">6000 CL30 (AMD 스위트스팟)</span></div>
         <div class="drow"><span class="k">모드</span><span class="v">EXPO · FCLK 1:1 동기화</span></div>
         <div class="drow"><span class="k">참고</span><span class="v">AMD는 8000+ 무의미 · 6000이 최적</span></div>
+      </div>
+    </div>
+
+    <div class="grid2 plat" data-plat="intel" hidden>
+      <div class="panel">
+        <h3>저장장치 배치 · 12TB</h3>
+        <div class="drow"><span class="k">M.2_1 <span class="tag">Gen5</span></span><span class="v">9100 PRO 4TB · 부팅/OS</span></div>
+        <div class="drow"><span class="k">M.2_2 <span class="tag">Gen4</span></span><span class="v">9100 PRO 4TB · 게임/개발 (Gen4 슬롯)</span></div>
+        <div class="drow"><span class="k">M.2_3 <span class="tag">Gen4</span></span><span class="v">T500 4TB (이식) · 데이터</span></div>
+        <div class="drow"><span class="k">특징</span><span class="v">Z890 M.2 5개(5.0 ×1·4.0 ×4) · Gen5 부팅 + 여유 슬롯 2개</span></div>
+      </div>
+      <div class="panel">
+        <h3>메모리 · 참고</h3>
+        <div class="drow"><span class="k">구성</span><span class="v">2×24GB (48GB) · CUDIMM</span></div>
+        <div class="drow"><span class="k">속도</span><span class="v">8400 CL40 (CUDIMM 고속)</span></div>
+        <div class="drow"><span class="k">모드</span><span class="v">XMP · 클럭 드라이버(CKD) 내장</span></div>
+        <div class="drow"><span class="k">참고</span><span class="v">Arrow Lake는 고속 램 이득 · 8000+ 유효</span></div>
       </div>
     </div>
   </section>
@@ -245,10 +341,17 @@
 
   <section>
     <div class="sechead"><span class="no">04</span><h2>Notes</h2><span class="rule"></span></div>
-    <div class="notes">
+    <div class="notes plat" data-plat="amd">
       <div class="note"><b>가격 변동성</b><p>램(CORSAIR)·SSD(9100 PRO)는 낸드·D램 시황 급등 직격탄. 실제 구매 시 재확인. 9100 PRO 4TB 최근 130만원대 → 170만원대.</p></div>
       <div class="note"><b>메모리 · 6000 CL30 (AMD 최적)</b><p>AMD는 인피니티 패브릭 1:1 동기화가 핵심이라 6000~6400이 스위트스팟. 8000+ 고속은 오히려 손해. 하이닉스 다이 6000 CL30이 EXPO로 안정적. 64GB 용량도 확보.</p></div>
       <div class="note"><b>SSD 방열판 · Gen5 슬롯 배치</b><p>9100 PRO 2장 모두 방열판 미포함 선택 · AERO X3D 보드 자체 M.2 방열판 사용(양면 SSD 이중 방열판 간섭 방지). 부팅용 9100 PRO는 M2A_CPU(Gen5 x4 풀속도)에 장착. 단 두 번째 Gen5 슬롯 M2B_CPU는 USB4 컨트롤러와 대역폭 공유 → 장착 시 둘 다 x2로 강등되므로, USB4를 상시 풀로 쓰려면 두 번째 9100 PRO를 칩셋 Gen4 x4 슬롯에 배치(실측 Gen5 x2 ≈ Gen4 x4 수준).</p></div>
+      <div class="note"><b>추후 검토</b><p>WireView Pro II Noctua Edition(2027 예정) · 모니터(ASUS ROG XG32UCWMG 등) · OS(Windows 11 정품).</p></div>
+    </div>
+
+    <div class="notes plat" data-plat="intel" hidden>
+      <div class="note"><b>가격 변동성</b><p>램(CORSAIR)·SSD(9100 PRO)는 낸드·D램 시황 급등 직격탄. 실제 구매 시 재확인. 9100 PRO 4TB 최근 130만원대 → 170만원대.</p></div>
+      <div class="note"><b>메모리 · CUDIMM 8400 (Intel 최적)</b><p>Arrow Lake(Core Ultra 200S)는 메모리 컨트롤러가 타일로 분리돼 고속 램에서 이득이 크다. CUDIMM은 클럭 드라이버(CKD)를 내장해 8000+ 고속을 안정화 — 일반 UDIMM보다 여유롭다. 2×24GB(48GB) 8400 CL40 구성.</p></div>
+      <div class="note"><b>SSD 방열판 · Gen5 슬롯 배치</b><p>9100 PRO 2장 모두 방열판 미포함 선택 · ProArt Z890 보드 자체 M.2 방열판 사용(양면 SSD 이중 방열판 간섭 방지). 부팅용 9100 PRO는 M.2_1(CPU 직결 Gen5 x4 풀속도)에 장착. 단 Z890은 CPU Gen5 M.2가 1개뿐이라 두 번째 9100 PRO는 칩셋 Gen4 x4 슬롯(~7,450MB/s)에 배치 — 체감 차이는 작지만 순차 대역폭은 절반.</p></div>
       <div class="note"><b>추후 검토</b><p>WireView Pro II Noctua Edition(2027 예정) · 모니터(ASUS ROG XG32UCWMG 등) · OS(Windows 11 정품).</p></div>
     </div>
   </section>
@@ -263,4 +366,13 @@
 <script>
   const tpl=document.getElementById('fanTpl').content;
   document.getElementById('heroFan').appendChild(tpl.cloneNode(true));
+
+  // AMD / Intel 플랫폼 탭 전환
+  const tabs=[...document.querySelectorAll('.tab')];
+  const plats=[...document.querySelectorAll('.plat')];
+  function setPlat(p){
+    tabs.forEach(t=>t.classList.toggle('active',t.dataset.tab===p));
+    plats.forEach(el=>{el.hidden=el.dataset.plat!==p;});
+  }
+  tabs.forEach(t=>t.addEventListener('click',()=>setPlat(t.dataset.tab)));
 </script>
