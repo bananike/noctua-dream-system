@@ -77,17 +77,36 @@
   .drow .k{color:var(--muted)}
   .drow .v{font-family:'JetBrains Mono',monospace;color:var(--cream);text-align:right;font-size:12px}
   .tag{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:10px;padding:2px 7px;border-radius:3px;border:1px solid var(--line-2);color:var(--brown-lt);letter-spacing:.1em;text-transform:uppercase}
-  .caseviz{display:flex;gap:26px;align-items:stretch;flex-wrap:wrap}
-  .casebox{flex:0 0 200px;border:1.5px solid var(--line-2);border-radius:8px;position:relative;min-height:230px;
-    background:rgba(42,10,5,.4),repeating-linear-gradient(90deg,transparent,transparent 11px,rgba(205,182,141,.03) 11px,rgba(205,182,141,.03) 12px);
-    -webkit-backdrop-filter:blur(5px);backdrop-filter:blur(5px)}
-  .flabel{position:absolute;font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--beige);background:var(--esp-3);border:1px solid var(--line-2);border-radius:3px;padding:3px 6px;white-space:nowrap}
-  .f-top{top:8px;left:50%;transform:translateX(-50%)}
-  .f-front{top:50%;left:8px;transform:translateY(-50%) rotate(-90deg);transform-origin:left center}
-  .f-rear{top:26px;right:8px}
-  .f-shroud{bottom:10px;left:50%;transform:translateX(-50%)}
-  .arrow{position:absolute;color:var(--brown-lt);font-size:15px;line-height:1}
-  .caselegend{flex:1 1 220px;min-width:200px}
+  .caseviz{display:flex;gap:30px;align-items:stretch;flex-wrap:wrap}
+  .airbox{flex:0 0 250px;display:flex;flex-direction:column;gap:14px;padding:16px 14px 0}
+  .case{position:relative;flex:1;min-height:300px;border:1.6px solid var(--line-2);border-radius:12px;
+    background:linear-gradient(155deg,rgba(213,189,147,.06),transparent 50%),rgba(29,6,3,.5);
+    box-shadow:inset 0 0 42px rgba(0,0,0,.45)}
+  /* 전면 흡기 메쉬 + 유리 패널 힌트 */
+  .case::before{content:"";position:absolute;inset:9px;border:1px solid var(--line);border-radius:8px;
+    background:repeating-linear-gradient(90deg,transparent,transparent 8px,rgba(205,182,141,.04) 8px,rgba(205,182,141,.04) 9px)}
+  .case::after{content:"AIRFLOW";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+    font-family:'Oswald',sans-serif;font-size:19px;letter-spacing:.34em;color:rgba(213,189,147,.13);
+    text-transform:uppercase;pointer-events:none}
+  .fpill{position:absolute;z-index:2;display:flex;flex-direction:column;align-items:center;gap:1px;
+    font-family:'JetBrains Mono',monospace;padding:5px 10px;border-radius:9px;white-space:nowrap;
+    background:var(--esp-3);border:1px solid var(--line-2);box-shadow:0 3px 12px rgba(0,0,0,.4)}
+  .fpill .dir{font-size:8px;letter-spacing:.13em;text-transform:uppercase}
+  .fpill .val{font-size:11px;color:var(--cream);font-weight:500;letter-spacing:.02em}
+  .fpill.intake{border-color:rgba(213,189,147,.45)}
+  .fpill.intake .dir{color:var(--beige)}
+  .fpill.exhaust{border-color:rgba(184,58,28,.5)}
+  .fpill.exhaust .dir{color:var(--brown-lt)}
+  .p-top{top:-14px;left:50%;transform:translateX(-50%)}
+  .p-rear{top:16px;left:-12px}
+  .p-front{top:52%;right:-12px;transform:translateY(-50%)}
+  .p-shroud{bottom:14px;left:50%;transform:translateX(-50%)}
+  .airkey{display:flex;justify-content:center;gap:20px;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted)}
+  .airkey span{display:flex;align-items:center;gap:6px}
+  .airkey i{width:9px;height:9px;border-radius:2px;display:inline-block}
+  .airkey i.in{background:var(--beige)}
+  .airkey i.out{background:var(--wine-lt)}
+  .caselegend{flex:1 1 240px;min-width:200px}
   .notes{display:flex;flex-direction:column;gap:12px}
   .note{background:rgba(42,10,5,.5);border-left:2px solid var(--wine-lt);border-radius:0 8px 8px 0;padding:14px 18px;
     -webkit-backdrop-filter:blur(5px);backdrop-filter:blur(5px)}
@@ -97,16 +116,16 @@
   footer .fan-sm svg{width:40px;height:40px;opacity:.8}
   footer .footlogo{width:40px;height:auto;border-radius:7px;opacity:.92;box-shadow:0 4px 14px rgba(88,10,0,.4)}
   footer .word{font-family:'Oswald',sans-serif;text-transform:uppercase;letter-spacing:.18em;font-size:13px;color:var(--beige);margin:14px 0 6px}
-  footer .fine{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--muted);letter-spacing:.06em;max-width:60ch;margin:0 auto}
+  footer .fine{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--muted);letter-spacing:.06em;margin:0 auto}
   /* 한국어 단어가 줄 끝에서 쪼개지지 않도록 */
   body{word-break:keep-all}
   /* hidden이 flex/grid display 규칙에 덮이지 않도록 */
   [hidden]{display:none!important}
   /* 플랫폼(AMD/Intel) 전환 탭 */
-  .tabs{display:inline-flex;gap:5px;margin-top:22px;padding:5px;border:1px solid var(--line-2);
+  .tabs{display:flex;width:100%;max-width:460px;gap:5px;margin-top:22px;padding:5px;border:1px solid var(--line-2);
     border-radius:16px;background:rgba(42,10,5,.5)}
-  .tab{font-family:'Oswald',sans-serif;font-weight:600;font-size:14px;letter-spacing:.09em;text-transform:uppercase;
-    padding:9px 22px;border:0;border-radius:12px;background:transparent;color:var(--muted);cursor:pointer;
+  .tab{flex:1 1 0;font-family:'Oswald',sans-serif;font-weight:600;font-size:14px;letter-spacing:.09em;text-transform:uppercase;
+    padding:9px 12px;border:0;border-radius:12px;background:transparent;color:var(--muted);cursor:pointer;
     transition:color .2s,background .2s,box-shadow .2s;white-space:nowrap;text-align:center}
   .tab:hover{color:var(--beige-lt)}
   .tab.active{color:var(--cream);background:linear-gradient(135deg,var(--wine),var(--brown));
@@ -319,21 +338,20 @@
   <section>
     <div class="sechead"><span class="no">03</span><h2>Fan Layout</h2><span class="rule"></span></div>
     <div class="caseviz">
-      <div class="casebox">
-        <span class="flabel f-top">TOP · 라디 배기</span>
-        <span class="arrow" style="top:26px;left:50%;transform:translateX(-50%)">&#9650;</span>
-        <span class="flabel f-front">FRONT · 흡기 ×3</span>
-        <span class="arrow" style="top:50%;left:26px;transform:translateY(-50%)">&#9654;</span>
-        <span class="flabel f-rear">REAR · 배기</span>
-        <span class="arrow" style="top:52px;right:30px">&#9654;</span>
-        <span class="flabel f-shroud">SHROUD · GPU 흡기 ×2</span>
-        <span class="arrow" style="bottom:30px;left:50%;transform:translateX(-50%)">&#9650;</span>
+      <div class="airbox">
+        <div class="case">
+          <div class="fpill p-top exhaust"><span class="dir">▲ TOP · 배기</span><span class="val">420 라디 · ×3</span></div>
+          <div class="fpill p-rear exhaust"><span class="dir">◀ REAR · 배기</span><span class="val">NF-A14 · ×1</span></div>
+          <div class="fpill p-front intake"><span class="dir">◀ FRONT · 흡기</span><span class="val">NF-A14 · ×3</span></div>
+          <div class="fpill p-shroud intake"><span class="dir">▲ SHROUD · 흡기</span><span class="val">NF-A12 · ×2</span></div>
+        </div>
+        <div class="airkey"><span><i class="in"></i>흡기 Intake</span><span><i class="out"></i>배기 Exhaust</span></div>
       </div>
       <div class="caselegend">
-        <div class="drow"><span class="k">상단</span><span class="v">NL-LC1 420 라디 + NF-A14 G2 ×3 (배기)</span></div>
-        <div class="drow"><span class="k">전면</span><span class="v">NF-A14x25 G2 ×3 (흡기)</span></div>
-        <div class="drow"><span class="k">후면</span><span class="v">NF-A14x25 G2 ×1 (배기)</span></div>
-        <div class="drow"><span class="k">쉬라우드</span><span class="v">NF-A12x25 G2 ×2 (위로 흡기)</span></div>
+        <div class="drow"><span class="k">상단 <span class="tag">배기</span></span><span class="v">420 라디 + NF-A14x25 G2 ×3</span></div>
+        <div class="drow"><span class="k">전면 <span class="tag">흡기</span></span><span class="v">NF-A14x25 G2 ×3</span></div>
+        <div class="drow"><span class="k">후면 <span class="tag">배기</span></span><span class="v">NF-A14x25 G2 ×1</span></div>
+        <div class="drow"><span class="k">쉬라우드 <span class="tag">흡기</span></span><span class="v">NF-A12x25 G2 ×2</span></div>
         <div class="drow"><span class="k">튜닝</span><span class="v">PPA/PPB 교차 · NA-AV4 방진</span></div>
       </div>
     </div>
